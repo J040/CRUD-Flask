@@ -7,48 +7,27 @@
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-AU-Compatible" content="ie=edge">
     <title>Produtos</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css"> -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
 <body>
-<h1 style="text-align: center;" >CRUD - Produtos</h1>
+<h1 style="text-align: center; margin-top: 50px; margin-bottom: 20px;" >CRUD - Produtos</h1>
 <div class="container">
     <div class="row">
-        <!-- <div class="col-xs-12">
-            <a href="/add">Adicionar Produto</a>
-        </div> -->
-        <div class="col-xs-12">
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>Nome</th>
-                        <th>Descrição</th>
-                        <th>Valor</th>
-                        <th>Desconto</th>
-                        <th>Ações</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for p in products%}
-                    <tr>
-                        <td>{{p.name}}</td>
-                        <td>{{p.description}}</td>
-                        <td>{{p.price}}</td>
-                        <td>{{p.discount_percent}}</td>
-                        <td>
-                            <div class="col-xs-12"  style="float: right;">
-                                <button style="margin: 5px; float:left; width: 100px;" onclick="window.location='/edit/{{p.id}}'" class="btn btn-block btn-primary">Editar</button>
-                                <button style="margin: 5px; float:center; width: 100px;" onclick="window.location='/delete/{{p.id}}'" class="btn btn-block btn-danger">Excluir</button>           
-                            </div>
-                            <!-- <a href="/inspect/{{p.id}}">Visualizar</a> |
-                            <a href="/edit/{{p.id}}">Editar</a> |
-                            <a href="/delete/{{p.id}}">Excluir</a> -->
-                        </td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
+        
+        {% for p in products %}
+        <div class="card" style="width: 17rem; margin: 6px;">
+            <img class="card-img-top" src="https://www.strokejoinville.com.br/wp-content/uploads/sites/804/2017/05/produto-sem-imagem-1.gif" alt="Card image cap">
+            <div class="card-body">
+              <h5 class="card-title">{{p.name}}</h5>
+              <p class="card-text">{{p.description}}</p>
+              <a href="/edit/{{p.id}}" class="btn btn-secondary">Editar</a>
+              <a href="/delete/{{p.id}}" class="btn btn-danger">Excluir</a>
+            </div>
         </div>
-        <button style="margin: 5px; float:center;" onclick="window.location='/add'" class="btn btn-block btn-success">Adicionar</button>           
+        {% endfor %}
+        
+        <a href="/add" style="margin-bottom: 50px; margin-top: 20px; margin-inline: 6px; float:center;" class="btn btn-block btn-success">Adicionar</a>
     </div>
 </div>
 </body>
