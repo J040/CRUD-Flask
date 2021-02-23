@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Adicionar Produto</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+</head>
+<body>
+<h1 style="text-align: center;" >Cadastro de Produto</h1>
+<form action="/add" class="container" method="post">
+    <div class="row" style="margin: 5px;">
+        <div class="col-md-6" style="margin-top: 10px;">
+            <input type="text" name="name" id="name" placeholder="Nome do produto" class="form-control">
+        </div>
+        <div class="col-md-6" style="margin-top: 10px;">
+            <input type="text" name="description" id="description" placeholder="Descrição do produto" class="form-control">
+        </div>
+        <div class="col-md-6" style="margin-top: 10px;">
+            <input type="text" name="price" id="price" placeholder="Preço do produto (R$)" class="form-control">
+        </div>
+        <div class="col-md-6" style="margin-top: 10px;">
+            <input type="text" name="discount_percent" id="discount_percent" placeholder="Porcentagem do desconto" class="form-control">
+        </div>        
+    </div>
+    <br>
+    <div class="col-xs-12">
+        <button type="submit" class="btn btn-block btn-success">Salvar</button>
+    </div>
+</form>
+
+</body>
+
+</html>

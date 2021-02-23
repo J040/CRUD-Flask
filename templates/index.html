@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-AU-Compatible" content="ie=edge">
+    <title>Produtos</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+</head>
+<body>
+<h1 style="text-align: center;" >CRUD - Produtos</h1>
+<div class="container">
+    <div class="row">
+        <!-- <div class="col-xs-12">
+            <a href="/add">Adicionar Produto</a>
+        </div> -->
+        <div class="col-xs-12">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Descrição</th>
+                        <th>Valor</th>
+                        <th>Desconto</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for p in products%}
+                    <tr>
+                        <td>{{p.name}}</td>
+                        <td>{{p.description}}</td>
+                        <td>{{p.price}}</td>
+                        <td>{{p.discount_percent}}</td>
+                        <td>
+                            <div class="col-xs-12"  style="float: right;">
+                                <button style="margin: 5px; float:left; width: 100px;" onclick="window.location='/edit/{{p.id}}'" class="btn btn-block btn-primary">Editar</button>
+                                <button style="margin: 5px; float:center; width: 100px;" onclick="window.location='/delete/{{p.id}}'" class="btn btn-block btn-danger">Excluir</button>           
+                            </div>
+                            <!-- <a href="/inspect/{{p.id}}">Visualizar</a> |
+                            <a href="/edit/{{p.id}}">Editar</a> |
+                            <a href="/delete/{{p.id}}">Excluir</a> -->
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <button style="margin: 5px; float:center;" onclick="window.location='/add'" class="btn btn-block btn-success">Adicionar</button>           
+    </div>
+</div>
+</body>
+
+</html>
