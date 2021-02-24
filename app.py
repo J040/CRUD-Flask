@@ -39,7 +39,7 @@ def add():
         price = request.form['price']
         discount_percent = request.form['discount_percent']
         image = request.form['image']
-        
+        # NÃO PERMITIR STRING NO PREÇO E NO DESCONTO
         if price == '':
             price = 0
         if discount_percent == '':
@@ -60,7 +60,7 @@ def edit(id):
         product.price = request.form['price']
         product.discount_percent = request.form['discount_percent']
         product.image = request.form['image']
-
+        # NÃO PERMITIR STRING NO PREÇO E NO DESCONTO
         if product.price == '':
             product.price = 0
         if product.discount_percent == '':

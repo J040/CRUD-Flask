@@ -15,7 +15,7 @@
             <input type="text" name="image" id="image" placeholder="URL da imagem do produto" class="form-control" value="{{ product.image }}">
         </div>
         <div class="col-md-6" style="margin-top: 10px;">
-            <input type="text" name="name" id="name" placeholder="Nome do produto" class="form-control" value="{{ product.name }}">
+            <input type="text" name="name" id="name" placeholder="Nome do produto" class="form-control" value="{{ product.name }}" required>
         </div>
         <div class="col-md-6" style="margin-top: 10px;">
             <input type="text" name="description" id="description" placeholder="Descrição do produto" class="form-control" value="{{ product.description }}">
@@ -23,6 +23,7 @@
         <div class="col-md-6" style="margin-top: 10px;">
             <input type="text" name="price" id="price" placeholder="Preço do produto (R$)" class="form-control" value="{{ product.price }}">
         </div>
+        <!-- ADICIONAR RADIO BUTTONS PARA SELECIONAR AS PORCENTAGENS DE DESCONTO (?) -->
         <div class="col-md-6" style="margin-top: 10px;">
             <input type="text" name="discount_percent" id="discount_percent" placeholder="Porcentagem do desconto" class="form-control" value="{{ product.discount_percent }}">
         </div>        

@@ -25,21 +25,21 @@
                 <img class="card-img-top" src="{{p.image}}" alt="{{p.name}}" height="280">
             {% endif %}
             <div class="card-body">
-              <h5 class="card-title">{{p.name}}</h5>
-              <p class="card-text" style="overflow: hidden; display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical;">{{p.description}}</p>
-              <div style="margin-bottom: 2px;">
-                {% if p.discount_percent != 0 and p.price != 0 %}
-                <b style="color: rgb(180, 42, 42); font-family: Verdana, Geneva, Tahoma, sans-serif;">De: <strike>R${{p.price}}</strike></b><br>
-                <p>({{p.discount_percent}}% de desconto)</p>
-                {% endif %}
-                {% if p.price - (p.price * (p.discount_percent/100)) <= 0 %}
-                <strong class="card-text" style="font-size:x-large; ">Grátis!</strong>
-                {% elif p.price != 0 %}
-                <strong class="card-text" style="font-size:x-large; ">Por: R${{p.price - (p.price * (p.discount_percent/100))}}</strong>
-                {% else %}
-                <strong class="card-text" style="font-size:x-large; ">Grátis!</strong>
-                {% endif %}
-              </div>
+                <h5 class="card-title">{{p.name}}</h5>
+                <p class="card-text" style="overflow: hidden; display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical;">{{p.description}}</p>
+                <div style="margin-bottom: 2px;">
+                  {% if p.discount_percent != 0 and p.price != 0 %}
+                  <b style="color: rgb(180, 42, 42); font-family: Verdana, Geneva, Tahoma, sans-serif;">De: <strike>R${{p.price}}</strike></b><br>
+                  <p>({{p.discount_percent}}% de desconto)</p>
+                  {% endif %}
+                  {% if p.price - (p.price * (p.discount_percent/100)) <= 0 %}
+                  <strong class="card-text" style="font-size:x-large; ">Grátis!</strong>
+                  {% elif p.price != 0 %}
+                  <strong class="card-text" style="font-size:x-large; ">Por: R${{p.price - (p.price * (p.discount_percent/100))}}</strong>
+                  {% else %}
+                  <strong class="card-text" style="font-size:x-large; ">Grátis!</strong>
+                  {% endif %}
+                </div>
             </div>
             <div style="position: relative; top: 0px; left: 0px; right: 10px; bottom: 10px;">
                 <a href="/edit/{{p.id}}" class="btn btn-secondary" style="position: relative; top: -10px; left: 112px; right: 0px; bottom: 0px;">Editar</a>
