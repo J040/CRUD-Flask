@@ -12,15 +12,18 @@
 </head>
 <body>
 
-<h1 style="text-align: center; margin-top: 20px; margin-bottom: 20px; font-family:'Lucida Sans', 'Lucida Sans Regular', 
+<h1 style="text-align: center; margin-top: 20px; margin-bottom: 20px; font-family:'Lucida Sans', 'Lucida Sans Regular',
 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif" >Create, Read, Update and Delete - Produtos</h1>
 <div class="container">
     <div class="row">
-        
+
         {% for p in products %}
         <div class="card" style="width: 17rem; margin: 6px;">
-            <!-- <img class="card-img-top" src="https://www.strokejoinville.com.br/wp-content/uploads/sites/804/2017/05/produto-sem-imagem-1.gif" alt="Card image cap"> -->
-            <img class="card-img-top" src="https://i.pinimg.com/originals/52/bc/39/52bc3928fd63daa22ebfb555f9ae07dd.jpg" alt="Funny cat card" height="300">
+            {% if p.image == '' %}
+                <img class="card-img-top" src="https://www.strokejoinville.com.br/wp-content/uploads/sites/804/2017/05/produto-sem-imagem-Copia-1.gif" alt="Without image" height="280">
+            {% else %}
+                <img class="card-img-top" src="{{p.image}}" alt="{{p.name}}" height="280">
+            {% endif %}
             <div class="card-body">
               <h5 class="card-title">{{p.name}}</h5>
               <p class="card-text" style="overflow: hidden; display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical;">{{p.description}}</p>
@@ -45,7 +48,7 @@
 
         </div>
         {% endfor %}
-        
+
         <a href="/add" style="margin-bottom: 50px; margin-top: 20px; margin-inline: 6px; float:center;" class="btn btn-block btn-success">Adicionar</a>
     </div>
 </div>

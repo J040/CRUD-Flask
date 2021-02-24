@@ -11,6 +11,9 @@
 <h1 style="text-align: center;" >Editar informações de produto: {{ product.name }}</h1>
 <form action="/edit/{{product.id}}" class="container" method="post">
     <div class="row">
+        <div class="col-md-12" style="margin-top: 10px;">
+            <input type="text" name="image" id="image" placeholder="URL da imagem do produto" class="form-control" value="{{ product.image }}">
+        </div>
         <div class="col-md-6" style="margin-top: 10px;">
             <input type="text" name="name" id="name" placeholder="Nome do produto" class="form-control" value="{{ product.name }}">
         </div>
