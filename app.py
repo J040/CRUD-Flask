@@ -38,8 +38,6 @@ def add():
         discount_percent = request.form['discount_percent']
         
         if price == '':
-            print("ENTROUOUOUOUUUUUUUUUUUUUUUUOOOO")
-            print(request.form['price'])
             price = 0
         if discount_percent == '':
             discount_percent = 0
@@ -53,11 +51,17 @@ def add():
 @app.route('/edit/<int:id>',  methods=['GET', 'POST'])
 def edit(id):
     product = Product.query.get(id)
-    if request.method == "POST":    
+    if request.method == "POST":
         product.name = request.form['name']
         product.description = request.form['description']
         product.price = request.form['price']
         product.discount_percent = request.form['discount_percent']
+
+        if product.price == '':
+            product.price = 0
+        if product.discount_percent == '':
+            product.discount_percent = 0
+
         db.session.commit()
         return redirect(url_for('index'))
     return render_template('edit.html', product=product)
