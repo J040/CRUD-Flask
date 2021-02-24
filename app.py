@@ -32,7 +32,19 @@ def index():
 @app.route('/add', methods=['GET', 'POST'])
 def add():
     if request.method == 'POST':
-        product = Product(request.form['name'], request.form['description'], request.form['price'], request.form['discount_percent'])
+        name = request.form['name']
+        description = request.form['description']
+        price = request.form['price']
+        discount_percent = request.form['discount_percent']
+        
+        if price == '':
+            print("ENTROUOUOUOUUUUUUUUUUUUUUUUOOOO")
+            print(request.form['price'])
+            price = 0
+        if discount_percent == '':
+            discount_percent = 0
+                        
+        product = Product(name, description, price, discount_percent)
         db.session.add(product)
         db.session.commit()
         return redirect(url_for('index'))
