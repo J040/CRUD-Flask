@@ -2,12 +2,36 @@
 
 <html lang="pt-br">
 
-<!-- <style>
-    .page-title {
-        font-family: 'Quicksand', sans-serif; /* IMPORTADA DA GOOGLE */ 
+<style>
+    :root {
+        --google_font: 'Roboto Condensed', sans-serif; /* IMPORTADA DA GOOGLE */ ;
     }
-    p {
-        font-size: small;
+    .page-title {
+        font-family: var(--google_font);
+        font-weight: 700;
+        font-size: 30px;
+        margin-top: 20px; 
+        margin-bottom: 20px; 
+        color: white; 
+        text-align: center;
+    }
+    .price {
+        font-family: var(--google_font);
+        margin: 10px 10px 10px 13px;
+    }
+    .add_button {
+        font-family: var(--google_font);
+        height: 40px;
+        width: 10px;
+        margin: 20px 20px 20px 130px;
+        
+    }
+    .edit_exclude {
+        font-family: var(--google_font);
+        font-weight: 700;
+        position: relative; 
+        padding-bottom: 10px;
+        padding-left: 10px;
     }
     .thin-red-border {
         border-color: red;
@@ -15,63 +39,81 @@
         border-style: solid;
         border-radius: 50%;
     }
-</style> -->
+</style>
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-AU-Compatible" content="ie=edge">
     <title>Produtos</title>
-    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css"> -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400;700&display=swap" rel="stylesheet">
 </head>
-<body>
 
-<h1  class="page-title" style="text-align: center; margin-top: 20px; margin-bottom: 20px;">Create, Read, Update and Delete - Produtos</h1>
-<div class="container">
-    <div class="row">
-        {% for p, d in products|zip(discounts) %}
-            <div class="card" style="width: 17rem; margin: 6px;">
-                {% if p.image == '' %}
-                    <img class="card-img-top" src="https://www.strokejoinville.com.br/wp-content/uploads/sites/804/2017/05/produto-sem-imagem-Copia-1.gif" alt="Without image" height="280">
-                {% else %}
-                    <img class="card-img-top" src="{{p.image}}" alt="{{p.name}}" height="280">
-                {% endif %}
-                <div class="card-body">
-                    <h5 class="card-title">{{p.name}}</h5>
-                    <p class="card-text" style="overflow: hidden; display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical;">{{p.description}}</p>
-                    <div style="margin-bottom: 2px;">
+<body style="background-color: rgb(88, 88, 88);">
 
-                    {% if d.discount_percent != 0 and p.price != 0 and d.end_date.date() >= now %}
-                        <b style="color: rgb(180, 42, 42); font-family: Verdana, Geneva, Tahoma, sans-serif;">De: <strike>R${{p.price}}</strike></b><br>
-                        <p>({{d.discount_percent}}% de desconto)</p>
-                        {% if p.price - (p.price * (d.discount_percent/100)) <= 0 %}
-                            <strong class="card-text" style="font-size:x-large; ">Grátis!</strong>
-                        {% elif p.price != 0 %}
-                            <strong class="card-text" style="font-size:x-large; ">Por: R${{p.price - (p.price * (d.discount_percent/100))}}</strong>
-                        {% else %}
-                            <strong class="card-text" style="font-size:x-large; ">Grátis!</strong>
-                        {% endif %}  
-                    {% elif p.price != 0 %}      
-                        <strong class="card-text" style="font-size:x-large; ">Por: R${{p.price}}</strong>
-                    {% else %}
-                        <strong class="card-text" style="font-size:x-large; ">Grátis!</strong>
-                    {% endif %}
-                    </div>
-                </div>
-                <div style="position: relative; top: 0px; left: 0px; right: 10px; bottom: 10px;">
-                    <a href="/edit/{{p.id}}" class="btn btn-secondary" style="position: relative; top: -10px; left: 112px; right: 0px; bottom: 0px;">Editar</a>
-                    <a href="/delete/{{p.id}}" class="btn btn-danger" style="position: relative; top: -10px; left: 112px; right: 0px; bottom: 0px;">Excluir</a>
-                </div>
-
+<div class="row" style="background-color: rgb(43, 43, 43);">
+    <div class="container" >
+        <div class="row" style="align-content: center;">
+            <h1 class="page-title col-md-6">Create, Read, Update and Delete - Produtos</h1>
+            <div class="" style="align-content: center;" >
+                <a href="/add" class="add_button btn btn-block btn-success" style="font-weight: 700; border: 0px; font-size: 18px; color: white; background-color: rgb(133, 185, 99);">Adicionar produto</a>
             </div>
-        {% endfor %}
+        </div>
 
-        <a href="/add" style="margin-bottom: 50px; margin-top: 20px; margin-inline: 6px; float:center;" class="btn btn-block btn-success">Adicionar</a>
     </div>
 </div>
+<div class="row" >
+    <div class="container" >
+        <div class="row" style="margin-top: 30px; margin-bottom: 50px; align-content: center;">
+            {% for p, d in products|zip(discounts) %}
+                <div class="card" style="width: 275px; margin: 5px; border: 0px; box-shadow: 2px 2px 5px;">
+                    {% if p.image == '' %}
+                        <img class="card-img-top" src="https://www.strokejoinville.com.br/wp-content/uploads/sites/804/2017/05/produto-sem-imagem-Copia-1.gif" alt="Without image" height="280">
+                    {% else %}
+                        <img class="card-img-top" src="{{p.image}}" alt="{{p.name}}" height="280">
+                    {% endif %}
+                    <div class="card-body" style="margin: 0px 0px 0px -7px;">
+                        <h5 class="card-title" style="font-family: var(--google_font); font-weight: 700;">{{p.name}}</h5>
+                        <p class="card-text" style="font-family: var(--google_font); font-weight: 400; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical;">{{p.description}}</p>
+                                               
+                    </div>
+                    <div class="price">
+                        {% if d.discount_percent != 0 and p.price != 0 and d.end_date.date() >= now %}
+                            <div class="row">
+                                <p style="margin: 0px 0px -25px 15px; font-family: var(--google_font); font-weight: 700; color: rgb(180, 42, 42);">De: <strike>R${{p.price}}</strike></p><br>
+                                <p style="margin: 3px 0px 0px 10px; font-size: 12px; font-family: var(--google_font); font-weight: 300;">({{d.discount_percent}}% de desconto)</p>
+                            </div>
+                            {% if p.price - (p.price * (d.discount_percent/100)) <= 0 %}
+                                <strong class="card-text" style="font-size:x-large; ">Grátis!</strong>
+                            {% elif p.price != 0 %}
+                                <strong class="card-text" style="font-size:x-large; ">Por: R${{p.price - (p.price * (d.discount_percent/100))}}</strong>
+                            {% else %}
+                                <strong class="card-text" style="font-size:x-large; ">Grátis!</strong>
+                            {% endif %}  
+                        {% elif p.price != 0 %}      
+                            <strong class="card-text" style="font-size:x-large; ">Por: R${{p.price}}</strong>
+                        {% else %}
+                            <strong class="card-text" style="font-size:x-large; ">Grátis!</strong>
+                        {% endif %}
+                    </div>                     
+                    <div class="edit_exclude" >
+                        <a href="/edit/{{p.id}}" class="btn btn-secondary" style="font-weight: 700; background-color: rgb(189, 189, 189); border: 0px;" >Editar</a>
+                        <a href="/delete/{{p.id}}" class="btn btn-danger" style="font-weight: 700; background-color: rgb(224, 75, 75); border: 0px;" >Excluir</a>
+                    </div>
+                </div>
+            {% endfor %}        
+        </div>
+    </div>
+</div>
+
+<div class="row" style="background-color: black;">
+    <div class="container col-md-12" style="color: rgb(121, 121, 121); text-align: center; margin: 20px 5px 5px 5px;">
+        <p style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">Made by: <a style="color: white;" href="https://www.linkedin.com/in/joao-victor-ribeiro/">João Victor Ribeiro de Jesus</a></p>
+    </div>
+</div>
+
 </body>
 
 </html>
