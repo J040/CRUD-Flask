@@ -1,10 +1,16 @@
-import os
+from datetime import datetime
 from flask import Flask, render_template, request, url_for, redirect
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy.orm import joinedload
+import jinja2
 
 app = Flask(__name__, template_folder='templates')
+
+app.jinja_env.filters['zip'] = zip
+app.jinja_env.filters['now'] = datetime.now().date()
+
 # app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////tmp/test.db'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test2.sqlite3'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test5.sqlite3'
 db = SQLAlchemy(app)
 
 # TABLE PRODUCTS
@@ -13,68 +19,107 @@ class Product(db.Model):
     name = db.Column(db.String)
     description = db.Column(db.String)
     price = db.Column(db.Float)
-    discount_percent = db.Column(db.Integer)
     image = db.Column(db.String)
 
-    def __init__(self, name, description, price, discount_percent, image):
-        self.name = name
-        self.description = description
-        self.price = price
-        self.discount_percent = discount_percent
-        self.image = image
+    def __init__(self, **kwargs):
+        super(Product, self).__init__(**kwargs)
 
     def __repr__(self):
-        return "<Product(name='%s', description='%s', price='%s', discount_percent='%s')>" % (self.name, self.description, self.price, self.discount_percent)
+        return "<Product(name='%s', description='%s', price='%s')>" % (self.name, self.description, self.price)
+
+# TABLE DISCOUNT
+class Discount(db.Model):
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    begin_date = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+    end_date = db.Column(db.DateTime)
+    discount_percent = db.Column(db.Integer)
+
+    id_product = db.Column(db.Integer, db.ForeignKey('product.id'))
+    product = db.relationship('Product', backref=db.backref('discount', lazy=True))
+
+    def __init__(self, **kwargs):
+        super(Discount, self).__init__(**kwargs)
+
+    def __repr__(self):
+        return "<Discount(begin_date='%s', end_date='%s', discount_percent='%s')>" % (self.begin_date, self.end_date, self.discount_percent)
 
 @app.route('/')
 def index():
     products = Product.query.all()
-    return render_template('index.html', products=products)
+    discounts = Discount.query.all()
+    return render_template('index.html', products=products, discounts=discounts, now=datetime.now().date())
 
 @app.route('/add', methods=['GET', 'POST'])
 def add():
     if request.method == 'POST':
+        image = request.form['image']
         name = request.form['name']
         description = request.form['description']
         price = request.form['price']
         discount_percent = request.form['discount_percent']
-        image = request.form['image']
-        # NÃO PERMITIR STRING NO PREÇO E NO DESCONTO
-        if price == '':
-            price = 0
+
+        if request.form['begin_date'] == '':
+            begin_date = datetime.now().date()
+        else:
+            begin_date = datetime.strptime(request.form['begin_date'], '%Y-%m-%d').date()
+
+        if request.form['end_date'] == '':
+            end_date = datetime.now().date()
+        else:
+            end_date = datetime.strptime(request.form['end_date'], '%Y-%m-%d').date()
+
         if discount_percent == '':
             discount_percent = 0
-                        
-        product = Product(name, description, price, discount_percent, image)
+
+        product = Product(name=name, description=description, price=price, image=image)
+        Discount(begin_date=begin_date, end_date=end_date, discount_percent=discount_percent, product=product)        
+
         db.session.add(product)
         db.session.commit()
+        discounts = Discount.query.first()
+
         return redirect(url_for('index'))
+
     return render_template('add.html')
 
 @app.route('/edit/<int:id>',  methods=['GET', 'POST'])
 def edit(id):
+
     product = Product.query.get(id)
+    discount = Discount.query.filter_by(id_product=id).first()
+
     if request.method == "POST":
+        product.image = request.form['image']
         product.name = request.form['name']
         product.description = request.form['description']
         product.price = request.form['price']
-        product.discount_percent = request.form['discount_percent']
-        product.image = request.form['image']
-        # NÃO PERMITIR STRING NO PREÇO E NO DESCONTO
-        if product.price == '':
-            product.price = 0
-        if product.discount_percent == '':
-            product.discount_percent = 0
+        
+        discount.discount_percent = request.form['discount_percent']
+
+        if request.form['end_date'] == '':
+            discount.end_date = datetime.now().date()
+        else:
+            discount.end_date = datetime.strptime(request.form['end_date'], '%Y-%m-%d').date()
+
+        if request.form['begin_date'] == '':
+            discount.begin_date = datetime.now().date()
+        else:
+            discount.begin_date = datetime.strptime(request.form['begin_date'], '%Y-%m-%d').date()
+
+        if discount.discount_percent == '':
+            discount.discount_percent = 0
 
         db.session.commit()
         return redirect(url_for('index'))
-    return render_template('edit.html', product=product)
+    return render_template('edit.html', product=product, discount=discount)
 
 
 @app.route('/delete/<int:id>')
 def delete(id):
     product = Product.query.get(id)
+    discount = Discount.query.filter_by(id_product=id).first()
     db.session.delete(product)
+    db.session.delete(discount)
     db.session.commit()
     return redirect(url_for('index'))
 

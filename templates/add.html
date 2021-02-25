@@ -5,32 +5,95 @@
 <head>
     <meta charset="UTF-8">
     <title>Adicionar Produto</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css"> -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
 </head>
 <body>
-<h1 style="text-align: center;" >Cadastro de Produto</h1>
+<h1 style="text-align: center; margin-top: 20px; margin-bottom: 20px;" >Cadastro de Produto</h1>
 <form action="/add" class="container" method="post">
     <div class="row" style="margin: 5px;">
-        <div class="col-md-12" style="margin-top: 10px;">
-            <input type="text" name="image" id="image" placeholder="URL da imagem do produto" class="form-control">
+
+        <label class="col-md-12" style="margin-top: 10px;">
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="basic-addon1">URL da imagem</span>
+                </div>
+                <input type="text" name="image" id="image" placeholder="https://..." class="form-control" aria-describedby="basic-addon1">
+            </div>
+        </label>
+
+        <label class="col-md-6" style="margin-top: 10px;">
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="basic-addon1">Nome do produto</span>
+                </div>
+                <input type="text" name="name" id="name" placeholder="Ex.: Mochila Nike" class="form-control" aria-describedby="basic-addon1" required>
+            </div>
+        </label>
+
+        <label class="col-md-6" style="margin-top: 10px;">
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1">R$</span>
+                </div>
+                <!-- <input type="number" class="form-control" name="price" id="price" placeholder="Digite aqui o preço do produto"> -->
+                <input type="number" class="form-control" name="price" id="price" min="0.00" step="0.01" required/>
+                </div>
+            </div>
+        </label>
+
+        <label class="col-md-12" style="margin-top: 10px;">
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">Descrição do produto</span>
+                </div>
+                <textarea class="form-control" name="description" id="description"></textarea>
+            </div>
+        </label>
+    </div>
+
+    <div class="row" style="margin: 5px;">
+        <div class="col-md-12" style="margin-top: 10px; text-align: center;">
+            <p style="font-size:xx-large;">Informações sobre o desconto</p>
         </div>
-        <div class="col-md-6" style="margin-top: 10px;">
-            <input type="text" name="name" id="name" placeholder="Nome do produto" class="form-control" required>
+
+        <label class="col-md-4" style="margin-top: 10px;">
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">Início do Período</span>
+                </div>
+                <input type="date" class="form-control" name="begin_date" id="begin_date" >
+            </div>
+        </label>
+
+        <label class="col-md-4" style="margin-top: 10px;">
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">Fim do Período</span>
+                </div>
+                <input type="date" class="form-control" name="end_date" id="end_date" >
+            </div>
+        </label>
+
+        <label class="col-md-4" style="margin-top: 10px;">
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">Porcentagem do Desconto (%)</span>
+                </div>
+                <input type="number" class="form-control" name="discount_percent" id="discount_percent" min="0" max="100">
+            </div>
+        </label>
+        <div class="col-md-12" style="margin-top: 10px; text-align: left;">
+            <p style="margin-top: 0px; color:rgb(173, 65, 65)">*Caso nenhuma data seja inserida e algum desconto seja especificado, o desconto será válido apenas para o dia atual.</p>
+            <p style="margin-top: 0px; color:rgb(173, 65, 65)">*Caso as datas sejam inserida e nenhum desconto especificado, nenhum desconto contabilizado.</p>
         </div>
-        <div class="col-md-6" style="margin-top: 10px;">
-            <input type="text" name="description" id="description" placeholder="Descrição do produto" class="form-control">
-        </div>
-        <div class="col-md-6" style="margin-top: 10px;">
-            <input type="text" name="price" id="price" placeholder="Preço do produto (R$)" class="form-control">
-        </div>
-        <div class="col-md-6" style="margin-top: 10px;">
-            <input type="text" name="discount_percent" id="discount_percent" placeholder="Porcentagem do desconto (%)" class="form-control">
-        </div>        
     </div>
     <br>
     <div class="col-xs-12">
         <button type="submit" class="btn btn-block btn-success">Salvar</button>
     </div>
+
 </form>
 
 </body>
