@@ -71,6 +71,9 @@ def add():
         if discount_percent == '':
             discount_percent = 0
 
+        if begin_date > end_date:
+            return render_template('edit_add.html', add=True, wrong_date=True)
+
         product = Product(name=name, description=description, price=price, image=image)
         Discount(begin_date=begin_date, end_date=end_date, discount_percent=discount_percent, product=product)        
 

@@ -122,7 +122,7 @@
                 <hr >
             </div>
 
-            <div class="row" style="margin: auto; margin-bottom: 50px;">          
+            <div class="row" style="margin: auto; margin-bottom: 10px;">          
                 <h5 class="card-title title" >Editar Promoção</h5>
             </div>
 
@@ -130,16 +130,24 @@
             <label id="image-input" class="card-text container">
                 <div class="row" style="margin: auto; margin-bottom: 50px;">                    
                     <div class="col-md-4" >
+
                         <div class="input-group-prepend col-md-12" style="margin-top: 20px;">
                             <p class="label" style="margin: 0px;">Data inicial:</p>
-                        </div>
+                        </div>                            
+
                         <div class="col-md-12 " >
                             {% if not add %}
                             <input type="date" class="form-control" name="begin_date" id="begin_date" value="{{discount.begin_date.date()}}" style="background-color: rgb(250, 249, 249); border-radius: 5px 5px 5px 5px; border: 10cm; border-color: black; box-shadow: 2px 2px 5px rgba(121, 121, 121, 0.514) inset;">
                             {% else %}
                             <input type="date" class="form-control" name="begin_date" id="begin_date" style="background-color: rgb(250, 249, 249); border-radius: 5px 5px 5px 5px; border: 10cm; border-color: black; box-shadow: 2px 2px 5px rgba(121, 121, 121, 0.514) inset;">
                             {% endif %}
-                        </div>                    
+                        </div>         
+                        {% if wrong_date %}
+                        <div class="col-md-12" style="margin-top: 5px;">
+                            <p style="font-family: var(--google_font); font-weight: 400; font-size: 14px; padding: 0px; margin: 0px; 
+                            color:rgb(212, 156, 0)">* A data inicial deve ser menor do que a final</p>
+                        </div>
+                        {% endif %}           
                     </div>
                     <div class="col-md-4" >
                         <div class="input-group-prepend col-md-12" style="margin-top: 20px;">
@@ -169,13 +177,13 @@
             </label>            
 
             <div class="container" style="font-family: var(--google_font); text-align: left; margin-top: -20px;">
-                <div class="row col-md-12" style="margin: auto; margin-left: 15px;">
-                    <p style="padding: 0px; margin: 0px; color:rgb(173, 65, 65)">* Caso nenhuma data seja inserida e algum desconto seja especificado, o desconto será válido apenas para o dia atual.</p>
-                    <p style="padding: 0px; margin: 0px; color:rgb(173, 65, 65)">* Caso as datas sejam inserida e nenhum desconto especificado, nenhum desconto contabilizado.</p>
+                <div class="col-md-12" style="margin: auto; margin-left: 15px;">
+                    <p style="padding: 0px; margin: 0px; color:rgb(173, 65, 65)">* O desconto só será contabilizado caso haja um valor no campo "Porcentagem do desconto".</p>
+                    <p style="padding: 0px; margin: 0px; color:rgb(173, 65, 65)">* Caso as datas não forem inseridas, o dia atual será levado em consideração.</p>
                 </div>
             </div>
 
-            <div class="row edit_exclude col-md-12" style="margin: 0px; margin-top: 40px;">
+            <div class="row edit_exclude col-md-12" style="margin: 0px; margin-top: 30px;">
                 <div class="col-md-6" style="padding: 0px; margin: auto; margin-top: 30px;">
                     <div class="col-md-12" style="margin: auto;">
                             {% if not add %}
