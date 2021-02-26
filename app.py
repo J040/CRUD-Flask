@@ -80,7 +80,7 @@ def add():
 
         return redirect(url_for('index'))
 
-    return render_template('edit.html', add=True)
+    return render_template('edit_add.html', add=True)
 
 @app.route('/edit/<int:id>',  methods=['GET', 'POST'])
 def edit(id):
@@ -111,7 +111,7 @@ def edit(id):
 
         db.session.commit()
         return redirect(url_for('index'))
-    return render_template('edit.html', product=product, discount=discount)
+    return render_template('edit_add.html', product=product, discount=discount)
 
 
 @app.route('/delete/<int:id>')
