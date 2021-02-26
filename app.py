@@ -80,7 +80,7 @@ def add():
 
         return redirect(url_for('index'))
 
-    return render_template('add.html')
+    return render_template('edit.html', add=True)
 
 @app.route('/edit/<int:id>',  methods=['GET', 'POST'])
 def edit(id):
