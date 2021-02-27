@@ -94,7 +94,11 @@
                                 <p style="margin: 0px; font-family: var(--google_font); font-weight: 700; color: rgb(180, 42, 42);">De: <strike>R${{p.price}}</strike></p>
                             </div>
                             <div>
-                                <p style="margin: 0px; margin-top: -2px; margin-bottom: 5px; font-size: 12px; font-family: var(--google_font); font-weight: 300;">({{d.discount_percent}}% de desconto) - {{d.remaining_days}} restantes</p>
+                                {% if d.remaining_days == 0 %}
+                                    <p style="margin: 0px; margin-top: -2px; margin-bottom: 5px; font-size: 12px; font-family: var(--google_font); font-weight: 300;">({{d.discount_percent}}% de desconto) - Somente hoje</p>
+                                {% else %}
+                                    <p style="margin: 0px; margin-top: -2px; margin-bottom: 5px; font-size: 12px; font-family: var(--google_font); font-weight: 300;">({{d.discount_percent}}% de desconto) - {{d.remaining_days}} restantes</p>
+                                {% endif %}
                             </div>
                             {% if p.price_float - (p.price_float * (d.discount_percent/100)) <= 0 %}
                                 <strong class="card-text" style="font-size:x-large; ">Grátis!</strong>
