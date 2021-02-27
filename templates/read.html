@@ -48,8 +48,8 @@
 
         <div class="row col-md-11" style="margin: auto; margin-bottom: 20px;">
             <div class="col-md-4" style="align-content: center;">
-                <div class="col-md-12" style="margin: 0px; padding: 0px;">
-                    <img class="card-img-top" height="450" style="border:2px solid rgb(201, 199, 199); border-style:dotted; border-radius: 5px 5px 5px 5px;" src="{{product.image}}" alt="Without image" >
+                <div class="col-md-12" style="margin: 0px; padding: 0px; width: 320px;">
+                    <img class="card-img-top" height="450" width="200" style="border:2px solid rgb(201, 199, 199); border-style:dotted; border-radius: 5px 5px 5px 5px;" src="{{product.image}}" alt="Without image" >
                 </div>
                 <div class="col-md-12" style="text-align: left; font-size: 40px; margin-top: 20px; padding: 0px; font-family: var(--google_font); font-weight: 700;"
                     {% if discount.discount_percent != 0 and discount.discount_percent < 100 and product.price != 0 and discount.end_date.date() >= now %}
