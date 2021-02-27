@@ -104,6 +104,7 @@ def edit(id):
     discount = Discount.query.filter_by(id_product=id).first()
 
     if request.method == "POST":
+        product.id = id
         product.image = request.form['image']
         product.name = request.form['name']
         product.description = request.form['description']
@@ -113,14 +114,17 @@ def edit(id):
         discount.discount_percent = request.form['discount_percent']
 
         if request.form['end_date'] == '':
-            discount.end_date = datetime.now().date()
+            discount.end_date = datetime.now()
         else:
-            discount.end_date = datetime.strptime(request.form['end_date'], '%Y-%m-%d').date()
+            discount.end_date = datetime.strptime(request.form['end_date'], '%Y-%m-%d')
 
         if request.form['begin_date'] == '':
-            discount.begin_date = datetime.now().date()
+            discount.begin_date = datetime.now()
         else:
-            discount.begin_date = datetime.strptime(request.form['begin_date'], '%Y-%m-%d').date()
+            discount.begin_date = datetime.strptime(request.form['begin_date'], '%Y-%m-%d')
+
+        if discount.begin_date > discount.end_date:
+            return render_template('edit_add.html', product=product, discount=discount, now=datetime.now().date(), wrong_date=True)
 
         if discount.discount_percent == '':
             discount.discount_percent = 0

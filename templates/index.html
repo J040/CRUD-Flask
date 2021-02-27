@@ -89,7 +89,7 @@
                                                
                     </div>
                     <div class="price">
-                        {% if d.discount_percent != 0 and p.price != 0 and d.end_date.date() >= now %}
+                        {% if d.discount_percent != 0 and d.discount_percent != 100 and p.price != 0 and d.end_date.date() >= now %}
                             <!-- {{d.remaining_days}} -->
                             <div class="row">
                                 <p style="margin: 0px 0px -25px 15px; font-family: var(--google_font); font-weight: 700; color: rgb(180, 42, 42);">De: <strike>R${{p.price}}</strike></p><br>
@@ -99,6 +99,7 @@
                                 <strong class="card-text" style="font-size:x-large; ">Grátis!</strong>
                             {% elif p.price_float != 0 %}
                                 <strong class="card-text" style="font-size:x-large; ">Por: R${{ '%0.2f' % (p.price_float - (p.price_float * (d.discount_percent/100)))|float }}</strong>
+                                <p style="margin: 0px; margin-top: -8px; padding: 0px; font-size: 12px; font-family: var(--google_font); font-weight: 300;">Faltam {{d.remaining_days}} dias</p>
                             {% else %}
                                 <strong class="card-text" style="font-size:x-large; ">Grátis!</strong>
                             {% endif %}  
