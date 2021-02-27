@@ -10,7 +10,7 @@ app.jinja_env.filters['zip'] = zip
 app.jinja_env.filters['now'] = datetime.now().date()
 
 # app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////tmp/test.db'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test1.sqlite3'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///lojadelivros.sqlite3'
 db = SQLAlchemy(app)
 
 # TABLE PRODUCTS
@@ -96,6 +96,13 @@ def add():
         return redirect(url_for('index'))
 
     return render_template('edit_add.html', add=True)
+
+@app.route('/view/<int:id>', methods=['GET'])
+def get(id):
+    product = Product.query.get(id)
+    discount = Discount.query.filter_by(id_product=id).first()
+
+    return render_template('read.html', product=product, discount=discount, now=datetime.now().date())
 
 @app.route('/edit/<int:id>',  methods=['GET', 'POST'])
 def edit(id):

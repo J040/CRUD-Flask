@@ -79,27 +79,27 @@
             {% for p, d in products|zip(discounts) %}
                 <div class="card" style="width: 275px; margin: 5px; border: 0px; box-shadow: 2px 2px 5px;">
                     {% if p.image == '' %}
-                        <img class="card-img-top" src="https://www.strokejoinville.com.br/wp-content/uploads/sites/804/2017/05/produto-sem-imagem-Copia-1.gif" alt="Without image" height="280">
+                        <img class="card-img-top" style="border-bottom:2px solid rgb(201, 199, 199); border-bottom-style:dotted" src="https://www.strokejoinville.com.br/wp-content/uploads/sites/804/2017/05/produto-sem-imagem-Copia-1.gif" alt="Without image" height="350">
                     {% else %}
-                        <img class="card-img-top" src="{{p.image}}" alt="{{p.name}}" height="280">
+                        <img class="card-img-top" style="border-bottom:2px solid rgb(201, 199, 199); border-bottom-style:dotted" src="{{p.image}}" alt="{{p.name}}" height="350">
                     {% endif %}
                     <div class="card-body" style="margin: 0px 0px 0px -7px;">
-                        <h5 class="card-title" style="font-family: var(--google_font); font-weight: 700;">{{p.name}}</h5>
+                        <a href="/view/{{p.id}}"><h5 class="card-title" style="font-family: var(--google_font); font-weight: 700; color: black;">{{p.name}}</h5></a>
                         <p class="card-text" style="font-family: var(--google_font); font-weight: 400; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical;">{{p.description}}</p>
                                                
                     </div>
                     <div class="price">
-                        {% if d.discount_percent != 0 and d.discount_percent != 100 and p.price != 0 and d.end_date.date() >= now %}
-                            <!-- {{d.remaining_days}} -->
-                            <div class="row">
-                                <p style="margin: 0px 0px -25px 15px; font-family: var(--google_font); font-weight: 700; color: rgb(180, 42, 42);">De: <strike>R${{p.price}}</strike></p><br>
-                                <p style="margin: 3px 0px 0px 10px; font-size: 12px; font-family: var(--google_font); font-weight: 300;">({{d.discount_percent}}% de desconto)</p>
+                        {% if d.discount_percent != 0 and d.discount_percent < 100 and p.price != 0 and d.end_date.date() >= now %}
+                            <div>
+                                <p style="margin: 0px; font-family: var(--google_font); font-weight: 700; color: rgb(180, 42, 42);">De: <strike>R${{p.price}}</strike></p>
+                            </div>
+                            <div>
+                                <p style="margin: 0px; margin-top: -2px; margin-bottom: 5px; font-size: 12px; font-family: var(--google_font); font-weight: 300;">({{d.discount_percent}}% de desconto) - {{d.remaining_days}} restantes</p>
                             </div>
                             {% if p.price_float - (p.price_float * (d.discount_percent/100)) <= 0 %}
                                 <strong class="card-text" style="font-size:x-large; ">Grátis!</strong>
                             {% elif p.price_float != 0 %}
                                 <strong class="card-text" style="font-size:x-large; ">Por: R${{ '%0.2f' % (p.price_float - (p.price_float * (d.discount_percent/100)))|float }}</strong>
-                                <p style="margin: 0px; margin-top: -8px; padding: 0px; font-size: 12px; font-family: var(--google_font); font-weight: 300;">Faltam {{d.remaining_days}} dias</p>
                             {% else %}
                                 <strong class="card-text" style="font-size:x-large; ">Grátis!</strong>
                             {% endif %}  
@@ -121,7 +121,7 @@
 
     <footer class="row col-md-12" style="padding: 0px; background-color:rgb(13, 13, 13);">
         <div class="container col-md-3" style="margin: auto; ">
-            <p class="col-md-12" style="font-family: var(--google_font); font-weight: 400; color: rgb(81, 81, 81); text-align: center; margin: auto; margin-top: 10px; margin-bottom: 10px;">Made by: <a style="color: white;" href="https://www.linkedin.com/in/joao-victor-ribeiro/" target="_blank">João Victor Ribeiro de Jesus</a></p>
+            <p class="col-md-12" style="font-family: var(--google_font); font-weight: 400; color: rgb(81, 81, 81); text-align: center; margin: auto; margin-top: 10px; margin-bottom: 10px;">Made by <a style="color: white;" href="https://www.linkedin.com/in/joao-victor-ribeiro/" target="_blank">João Victor Ribeiro de Jesus</a></p>
         </div>
     </footer>
 </div>
