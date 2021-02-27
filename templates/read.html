@@ -46,41 +46,47 @@
             <h4 class="card-title title" style="font-size: 40px;">{{product.name}}</h4>
         </div>
 
-        <div class="row col-md-12" style="margin: auto; margin-bottom: 20px;">
+        <div class="row col-md-11" style="margin: auto; margin-bottom: 20px;">
             <div class="col-md-4" style="align-content: center;">
-                <img class="card-img-top" height="500" style="border:2px solid rgb(201, 199, 199); border-style:dotted; border-radius: 5px 5px 5px 5px;" src="{{product.image}}" alt="Without image" >
-            </div>   
-            
-            <div class="col-md-8" style="margin: auto; margin-bottom: -20px;">
-                <div class="col-md-12" style="font-size: 20px; padding: 20px; padding-top: 0px; text-align: justify; align-content: center; font-family: var(--google_font); font-weight: 400;  border-radius: 5px 5px 5px 5px;">
-                    {{product.description}}
-                </div> 
-                
-                <div class="col-md-12" style="text-align: left; font-size: 40px; padding: 20px; font-family: var(--google_font); font-weight: 700;"
+                <div class="col-md-12" style="margin: 0px; padding: 0px;">
+                    <img class="card-img-top" height="450" style="border:2px solid rgb(201, 199, 199); border-style:dotted; border-radius: 5px 5px 5px 5px;" src="{{product.image}}" alt="Without image" >
+                </div>
+                <div class="col-md-12" style="text-align: left; font-size: 40px; margin-top: 20px; padding: 0px; font-family: var(--google_font); font-weight: 700;"
                     {% if discount.discount_percent != 0 and discount.discount_percent < 100 and product.price != 0 and discount.end_date.date() >= now %}
                         <div>
-                            <p style="font-size: 30px; margin: 0px; font-family: var(--google_font); font-weight: 700; color: rgb(180, 42, 42);">De: <strike>R${{product.price}}</strike></p>
+                            <p style="font-size: 24px; margin: 0px; font-family: var(--google_font); font-weight: 700; color: rgb(180, 42, 42);">De: <strike>R${{product.price}}</strike></p>
                             {% if discount.remaining_days == 0 %}
                                 <p style="margin: 0px; margin-top: -7px; margin-bottom: 5px; font-size: 15px; font-family: var(--google_font); font-weight: 300;">({{discount.discount_percent}}% de desconto) - Promoção válida até hoje</p>
                             {% else %}
-                            <p style="margin: 0px; margin-top: -7px; margin-bottom: 5px; font-size: 15px; font-family: var(--google_font); font-weight: 300;">({{discount.discount_percent}}% de desconto) - {{discount.remaining_days}} restantes</p>
+                                <p style="margin: 0px; margin-top: -7px; margin-bottom: 5px; font-size: 15px; font-family: var(--google_font); font-weight: 300;">({{discount.discount_percent}}% de desconto) - {{discount.remaining_days}} restantes</p>
                             {% endif %}
                             {% if product.price_float - (product.price_float * (discount.discount_percent/100)) <= 0 %}
-                                <p style="font-size: 30px;">Grátis!</p>
+                                <p style="font-size: 40px;">Grátis!</p>
                             {% elif product.price_float != 0 %}
-                                <p style="font-size: 50px;">Por: R${{ '%0.2f' % (product.price_float - (product.price_float * (discount.discount_percent/100)))|float }}</p>
+                                <p style="font-size: 40px;">Por: R${{ '%0.2f' % (product.price_float - (product.price_float * (discount.discount_percent/100)))|float }}</p>
                             {% else %}
-                                <p style="font-size: 30px;">Grátis!</p>
+                                <p style="font-size: 40px;">Grátis!</p>
                             {% endif %} 
                         </div>
-                    {% elif product.price != 0 %}      
-                        <p style="font-size: 30px;">Preço: R${{product.price}}</p>
+                    {% elif product.price != 0 %}   
+                    <div>
+                        <p style="font-size: 40px;">Preço: R${{product.price}}</p>
+                    </div>
                     {% else %}
-                        <p style="font-size: 30px;">Grátis!</p>
+                    <div>
+                        <p style="font-size: 40px;">Grátis!</p>
+                    </div>
                     {% endif %}
                 </div>
-                    
-            </div>
+
+                <div class="col-md-8" style="margin: 0px; font-size: 20px; padding: 20px; padding-top: 0px; text-align: justify; align-content: center; font-family: var(--google_font); font-weight: 400;  border-radius: 5px 5px 5px 5px;">
+
+                        {{product.description}}
+
+                </div> 
+                
+            </div>   
+
 
             <!-- BUTTONS -->
             <div class="row edit_exclude col-md-12" style="margin: 0px; margin-top: 0px;">
@@ -92,6 +98,7 @@
                     </div>
                 </div>
             </div>
+            
         </div>
 
     </div>
