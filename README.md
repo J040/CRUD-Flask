@@ -8,11 +8,11 @@ Description: I used as a basis the application of a system that allows to perfor
 
 ## Running the application
 
-All the dependencies are listed in requirements.txt (but isn't necessary to 'pip3' install them)
+All the dependencies are listed in requirements.txt (but isn't necessary to 'pip' install them)
 
 ```bash
 source venv/bin/activate
 
-python3 app.py
+python app.py
 
 ```
