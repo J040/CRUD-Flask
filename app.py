@@ -10,7 +10,7 @@ app.jinja_env.filters['zip'] = zip
 app.jinja_env.filters['now'] = datetime.now().date()
 
 # app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////tmp/test.db'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.sqlite3'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test1.sqlite3'
 db = SQLAlchemy(app)
 
 # TABLE PRODUCTS
@@ -33,6 +33,7 @@ class Discount(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     begin_date = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     end_date = db.Column(db.DateTime)
+    remaining_days = db.Column(db.Integer)
     discount_percent = db.Column(db.Integer)
 
     id_product = db.Column(db.Integer, db.ForeignKey('product.id'))
@@ -48,6 +49,10 @@ class Discount(db.Model):
 def index():
     products = Product.query.all()
     discounts = Discount.query.all()
+    for d in discounts:
+        d.remaining_days = abs( d.end_date.date() - datetime.now().date() ).days
+        db.session.commit()
+
     return render_template('index.html', products=products, discounts=discounts, now=datetime.now().date())
 
 @app.route('/add', methods=['GET', 'POST'])
@@ -58,6 +63,7 @@ def add():
         description = request.form['description']
         price = request.form['price']
         discount_percent = request.form['discount_percent']
+        remaining_days = 0
 
         if request.form['begin_date'] == '':
             begin_date = datetime.now().date()
@@ -75,13 +81,13 @@ def add():
         if begin_date > end_date:
             return render_template('edit_add.html', add=True, wrong_date=True)
 
-        if type(price) == str:
-            price = '0'
+        if price == '':
+            price = 0
 
         price_float = float(price)
         
         product = Product(name=name, description=description, price=price, price_float=price_float, image=image)
-        Discount(begin_date=begin_date, end_date=end_date, discount_percent=discount_percent, product=product)        
+        Discount(begin_date=begin_date, end_date=end_date, discount_percent=discount_percent, product=product, remaining_days=remaining_days)        
 
         db.session.add(product)
         db.session.commit()
@@ -102,6 +108,7 @@ def edit(id):
         product.name = request.form['name']
         product.description = request.form['description']
         product.price = request.form['price']
+        product.price_float = product.price
 
         discount.discount_percent = request.form['discount_percent']
 
@@ -117,6 +124,10 @@ def edit(id):
 
         if discount.discount_percent == '':
             discount.discount_percent = 0
+
+        if product.price == '':
+            product.price = '0'
+            product.price_float = '0'
 
         db.session.commit()
         return redirect(url_for('index'))
