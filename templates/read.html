@@ -58,7 +58,7 @@
                             {% if discount.remaining_days == 0 %}
                                 <p style="margin: 0px; margin-top: -7px; margin-bottom: 5px; font-size: 15px; font-family: var(--google_font); font-weight: 300;">({{discount.discount_percent}}% de desconto) - Promoção válida até hoje</p>
                             {% else %}
-                                <p style="margin: 0px; margin-top: -7px; margin-bottom: 5px; font-size: 15px; font-family: var(--google_font); font-weight: 300;">({{discount.discount_percent}}% de desconto) - {{discount.remaining_days}} restantes</p>
+                                <p style="margin: 0px; margin-top: -7px; margin-bottom: 5px; font-size: 15px; font-family: var(--google_font); font-weight: 300;">({{discount.discount_percent}}% de desconto) - {{discount.remaining_days}} dias restantes</p>
                             {% endif %}
                             {% if product.price_float - (product.price_float * (discount.discount_percent/100)) <= 0 %}
                                 <p style="font-size: 40px;">Grátis!</p>
