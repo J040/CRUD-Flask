@@ -15,5 +15,5 @@ python3 app.py
 
 ```
 
-## All the dependencies are listed in requirements.txt (but isn't necessary to 'pip3' install them)
+All the dependencies are listed in requirements.txt (but isn't necessary to 'pip3' install them)
 
