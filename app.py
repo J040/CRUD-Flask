@@ -57,7 +57,6 @@ def add():
         name = request.form['name']
         description = request.form['description']
         price = request.form['price']
-        price_float = float(price)
         discount_percent = request.form['discount_percent']
 
         if request.form['begin_date'] == '':
@@ -76,6 +75,11 @@ def add():
         if begin_date > end_date:
             return render_template('edit_add.html', add=True, wrong_date=True)
 
+        if type(price) == str:
+            price = '0'
+
+        price_float = float(price)
+        
         product = Product(name=name, description=description, price=price, price_float=price_float, image=image)
         Discount(begin_date=begin_date, end_date=end_date, discount_percent=discount_percent, product=product)        
 
