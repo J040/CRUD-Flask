@@ -39,7 +39,14 @@
         border-style: solid;
         border-radius: 50%;
     }
-
+    footer {
+        clear: both;
+        position: relative;
+        height: 50px;
+    }
+    .allButFooter {
+        min-height: calc(100vh - 200px);
+    }
 </style>
 
 <head>
@@ -54,8 +61,8 @@
 
 <body style="background-color: rgb(88, 88, 88);">
 
-<div class="row" style="background-color: rgb(43, 43, 43);">
-    <div class="container" >
+    <div class="row" style="background-color: rgb(13, 13, 13);">
+        <div class="container" >
         <div class="row" style="align-content: center;">
             <h1 class="page-title col-md-6">Create, Read, Update & Delete - Produtos</h1>
             <div class="" style="align-content: center;" >
@@ -66,9 +73,9 @@
 
     </div>
 </div>
-<div class="row" >
+<div class="row " >
     <div class="container" >
-        <div class="row" style="margin-top: 30px; margin-bottom: 50px; align-content: center;">
+        <div class="row allButFooter" style="margin-top: 30px; margin-bottom: 30px; align-content: center;">
             {% for p, d in products|zip(discounts) %}
                 <div class="card" style="width: 275px; margin: 5px; border: 0px; box-shadow: 2px 2px 5px;">
                     {% if p.image == '' %}
@@ -87,10 +94,10 @@
                                 <p style="margin: 0px 0px -25px 15px; font-family: var(--google_font); font-weight: 700; color: rgb(180, 42, 42);">De: <strike>R${{p.price}}</strike></p><br>
                                 <p style="margin: 3px 0px 0px 10px; font-size: 12px; font-family: var(--google_font); font-weight: 300;">({{d.discount_percent}}% de desconto)</p>
                             </div>
-                            {% if p.price - (p.price * (d.discount_percent/100)) <= 0 %}
+                            {% if p.price_float - (p.price_float * (d.discount_percent/100)) <= 0 %}
                                 <strong class="card-text" style="font-size:x-large; ">Grátis!</strong>
-                            {% elif p.price != 0 %}
-                                <strong class="card-text" style="font-size:x-large; ">Por: R${{p.price - (p.price * (d.discount_percent/100))}}</strong>
+                            {% elif p.price_float != 0 %}
+                                <strong class="card-text" style="font-size:x-large; ">Por: R${{p.price_float - (p.price_float * (d.discount_percent/100))}}</strong>
                             {% else %}
                                 <strong class="card-text" style="font-size:x-large; ">Grátis!</strong>
                             {% endif %}  
@@ -109,16 +116,16 @@
         </div>
 
     </div>
+
+    <footer class="row col-md-12" style="padding: 0px; background-color:rgb(13, 13, 13);">
+        <div class="container col-md-3" style="margin: auto; ">
+            <p class="col-md-12" style="font-family: var(--google_font); font-weight: 400; color: rgb(81, 81, 81); text-align: center; margin: auto; margin-top: 10px; margin-bottom: 10px;">Made by: <a style="color: white;" href="https://www.linkedin.com/in/joao-victor-ribeiro/" target="_blank">João Victor Ribeiro de Jesus</a></p>
+        </div>
+    </footer>
 </div>
 
 </body>
 
-<footer>
-    <div class="row" style="background-color: black;">
-        <div class="container col-md-12" style="color: rgb(121, 121, 121); text-align: center; margin: 20px 5px 5px 5px;">
-            <p style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">Made by: <a style="color: white;" href="https://www.linkedin.com/in/joao-victor-ribeiro/">João Victor Ribeiro de Jesus</a></p>
-        </div>
-    </div>
-</footer>
+
 
 </html>

@@ -90,9 +90,9 @@
                         </div>
                         <div class="col-md-12 " >
                             {% if not add %}
-                            <input type="number" class="form-control" name="price" id="price" min="0.00" step="0.01" placeholder="00,00" value="{{product.price}}" style="background-color: rgb(250, 249, 249); border-radius: 5px 5px 5px 5px; border: 10cm; border-color: black; box-shadow: 2px 2px 5px rgba(121, 121, 121, 0.514) inset;" required>
+                            <input type="number" class="form-control" name="price" id="price" min="0.00" max="9999999999.99" step="0.01" placeholder="00,00" value="{{product.price}}" style="background-color: rgb(250, 249, 249); border-radius: 5px 5px 5px 5px; border: 10cm; border-color: black; box-shadow: 2px 2px 5px rgba(121, 121, 121, 0.514) inset;" required>
                             {% else %}
-                            <input type="number" class="form-control" name="price" id="price" min="0.00" step="0.01" placeholder="00,00" style="background-color: rgb(250, 249, 249); border-radius: 5px 5px 5px 5px; border: 10cm; border-color: black; box-shadow: 2px 2px 5px rgba(121, 121, 121, 0.514) inset;" required>
+                            <input type="number" class="form-control" name="price" id="price" min="0.00" max="9999999999.99" step="0.01" placeholder="00,00" style="background-color: rgb(250, 249, 249); border-radius: 5px 5px 5px 5px; border: 10cm; border-color: black; box-shadow: 2px 2px 5px rgba(121, 121, 121, 0.514) inset;" required>
                             {% endif %}
                         </div>                    
                     </div>
@@ -214,11 +214,9 @@
 
 </body>
 
-<footer style="bottom: 0; left: 0; width: 100%;">
-    <div class="row" style="background-color: black;">
-        <div class="container col-md-12" style="color: rgb(121, 121, 121); text-align: center; margin: 20px 5px 5px 5px;">
-            <p style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">Made by: <a style="color: white;" href="https://www.linkedin.com/in/joao-victor-ribeiro/">João Victor Ribeiro de Jesus</a></p>
-        </div>
+<footer class="row col-md-12" style="padding: 0px; margin: 0px; background-color:rgb(0, 0, 0);">
+    <div class="container col-md-3" style="margin: auto; ">
+        <p class="col-md-12" style="color: rgb(70, 70, 70); text-align: center; margin: auto; margin-top: 10px; margin-bottom: 10px; font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">Made by: <a style="color: white;" href="https://www.linkedin.com/in/joao-victor-ribeiro/">João Victor Ribeiro de Jesus</a></p>
     </div>
 </footer>
 </html>

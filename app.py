@@ -10,7 +10,7 @@ app.jinja_env.filters['zip'] = zip
 app.jinja_env.filters['now'] = datetime.now().date()
 
 # app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////tmp/test.db'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test5.sqlite3'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.sqlite3'
 db = SQLAlchemy(app)
 
 # TABLE PRODUCTS
@@ -18,7 +18,8 @@ class Product(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     name = db.Column(db.String)
     description = db.Column(db.String)
-    price = db.Column(db.Float)
+    price = db.Column(db.Numeric(10,2))
+    price_float = db.Column(db.Float)
     image = db.Column(db.String)
 
     def __init__(self, **kwargs):
@@ -56,6 +57,7 @@ def add():
         name = request.form['name']
         description = request.form['description']
         price = request.form['price']
+        price_float = float(price)
         discount_percent = request.form['discount_percent']
 
         if request.form['begin_date'] == '':
@@ -74,7 +76,7 @@ def add():
         if begin_date > end_date:
             return render_template('edit_add.html', add=True, wrong_date=True)
 
-        product = Product(name=name, description=description, price=price, image=image)
+        product = Product(name=name, description=description, price=price, price_float=price_float, image=image)
         Discount(begin_date=begin_date, end_date=end_date, discount_percent=discount_percent, product=product)        
 
         db.session.add(product)
@@ -96,7 +98,7 @@ def edit(id):
         product.name = request.form['name']
         product.description = request.form['description']
         product.price = request.form['price']
-        
+
         discount.discount_percent = request.form['discount_percent']
 
         if request.form['end_date'] == '':
